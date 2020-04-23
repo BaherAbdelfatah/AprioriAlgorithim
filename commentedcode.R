@@ -1,0 +1,21 @@
+#unique_v10=unique(data[,1])
+#unique_v11=unique(data[,2])
+#unique_v12=unique(data[,3])
+#unique_v13=unique(data[,4])
+#unique_v14=unique(data[,5])
+#unique_v15=unique(data[,6])
+#unique_v16=unique(data[,7])
+#unique_v17=unique(data[,8])
+#unique_v18=unique(data[,9])
+#unique_v19=unique(data[,10])
+#unique_v20=unique(data[,11])
+#unique_v21=unique(data[,12])
+#MinSupport<- readline(prompt="Enter Min Support: ")
+#MinConfidence<- readline(prompt="Enter Min Confidence: ")
+#MinSupport <- as.numeric(readline(prompt="Enter Min Support: "))
+x <- readLines("stdin", 1)
+x
+#MinSupport = readline(prompt="Enter Min Support: ")
+#MinConfidence =  readline(prompt="Enter Min Confidence: ")
+#MinSupport
+#MinConfidence
