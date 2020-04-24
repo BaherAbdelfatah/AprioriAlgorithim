@@ -65,8 +65,68 @@ GetMinConfidence<-function(){
     return(MinConfidence)
 }
 ################################################################################
+AccessValueInside<-function(threeDimDataType,col_num,value){
+for (i in threeDimDataType[col_num]) { 
+  return(as.numeric(i[toString(value)]))
+}
+}
+################################################################################
+
+check<- function(combination,listofold){
+    for(i in 1:NROW(listofold)){
+        if(length(combination)==length(listofold[[i]])){
+            if( all(combination==listofold[[i]])){
+                return(TRUE)
+            }
+        }
+    }
+    return(FALSE)
+}
+
+################################################################################
+
+GetRules<- function(listOfitem) {
+    
+    listofold<-list()
+    
+    
+    for(set in 1:NROW(listOfitem)){
+        
+        select<-names(listOfitem[[set]])
+        
+        y <- permutations(n=length(select), r=length(select), v=select, set=TRUE, repeats.allowed=FALSE)
+        
+        t<-"->"
+        rules<-list()
+        
+        count<-1
+        size<-ncol(rules)
+        
+        for(col in 1:(ncol(y)-1)) {
+            old<-y[1,1:col]
+            # print(col)
+            listofold[[length(listofold)+1]]<-old
+            message(y[1,1:col],t,y[1,(col+1):ncol(y)])
+            rules[[length(rules)+1]]<-c(y[1,1:col],t,y[1,(col+1):ncol(y)])
+            count<-count+1
+            for(row in 1:nrow(y)) {
+                
+                if(!check(sort(y[row,1:col]),listofold)){
+                    message(y[row,1:col],t,y[row,(col+1):ncol(y)])
+                    rules[[length(rules)+1]]<-c(y[row,1:col],t,y[row,(col+1):ncol(y)])
+                    count<-count+1
+                    old=y[row,1:col]
+                    listofold[[length(listofold)+1]]<-old
+                }
+                
+            }
+        }
+        print(rules)
+    }
+}
 
 
+################################################################################
 
 #Main Function
 
@@ -77,15 +137,13 @@ MinSupport<-GetMinSupport()
 MinConfidence<-GetMinConfidence()
 
 data<-ReadData()
-data
+#data
 unique<-UniqueValues(data)
-unique
+#unique
 support<-SupportOneItemSet(unique,data)
 support
 supportfiltered<-MinSupportFilter(support,MinSupport)
-supportfiltered
-
-################################################################################
-
-
-
+#supportfiltered
+#names(supportfiltered[[1]])
+print(AccessValueInside(support,1,0))
+################################################################################    
